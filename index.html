@@ -1838,7 +1838,11 @@ overlay.addEventListener("click", () => {
   }, 600);
 });
 function toggleAudio(btn) {
-  const audio = btn.parentElement.querySelector("audio");
+  const player = btn.parentElement;
+  const audio = player.querySelector("audio");
+  const progress = player.querySelector(".progress");
+  const current = player.querySelector(".current");
+  const duration = player.querySelector(".duration");
 
   if (audio.paused) {
     audio.play();
@@ -1847,6 +1851,26 @@ function toggleAudio(btn) {
     audio.pause();
     btn.textContent = "▶";
   }
+
+  audio.ontimeupdate = () => {
+    const percent = (audio.currentTime / audio.duration) * 100;
+    progress.value = percent || 0;
+
+    const format = t => {
+      const m = Math.floor(t / 60);
+      const s = Math.floor(t % 60).toString().padStart(2, "0");
+      return `${m}:${s}`;
+    };
+
+    current.textContent = format(audio.currentTime);
+  };
+
+  audio.onended = () => {
+    btn.textContent = "▶";
+    progress.value = 0;
+    audio.currentTime = 0;
+  };
+}
 
   audio.addEventListener("ended", () => {
     btn.textContent = "▶";
