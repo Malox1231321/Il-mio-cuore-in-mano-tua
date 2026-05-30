@@ -1839,11 +1839,52 @@ overlay.addEventListener("click", () => {
     const firstAudio = firstTrack?.querySelector("audio");
 
     if (firstAudio) {
-      firstAudio.play().catch(() => {});
+     const player = firstAudio.closest(".custom-player");
+const btn = player?.querySelector(".play-btn");
+
+const player = firstAudio.closest(".custom-player");
+const btn = player.querySelector(".play-btn");
+
+firstAudio.play().catch(() => {});
+btn.textContent = "⏸";
+bindAudioUI(firstAudio, player, btn);
+bindAudioUI(firstAudio, player, btn);
+btn.textContent = "⏸";
     }
 
   }, 600);
 });
+function bindAudioUI(audio, player, btn) {
+  const progress = player.querySelector(".progress");
+  const current = player.querySelector(".current");
+  const duration = player.querySelector(".duration");
+
+  const format = t => {
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  };
+
+  audio.onloadedmetadata = () => {
+    duration.textContent = format(audio.duration);
+  };
+
+  audio.ontimeupdate = () => {
+    if (!audio.duration) return;
+    progress.value = (audio.currentTime / audio.duration) * 100;
+    current.textContent = format(audio.currentTime);
+  };
+
+  progress.oninput = () => {
+    audio.currentTime = (progress.value / 100) * audio.duration;
+  };
+
+  audio.onended = () => {
+    if (btn) btn.textContent = "▶";
+    progress.value = 0;
+    audio.currentTime = 0;
+  };
+}
 function toggleAudio(btn) {
   const player = btn.parentElement;
   const audio = player.querySelector("audio");
@@ -1854,6 +1895,7 @@ function toggleAudio(btn) {
   if (audio.paused) {
     audio.play();
     btn.textContent = "⏸";
+bindAudioUI(audio, player, btn);
   } else {
     audio.pause();
     btn.textContent = "▶";
