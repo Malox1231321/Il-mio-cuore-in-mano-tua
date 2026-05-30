@@ -743,6 +743,37 @@ details p {
   pointer-events: none;
   transition: opacity .6s ease;
 }
+.custom-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  margin-top: 10px;
+}
+
+.play-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: #ffffff20;
+  color: white;
+}
+
+.play-btn:hover {
+  background: #ffffff35;
+}
+
+.track-name {
+  font-size: 14px;
+  opacity: 0.9;
+}
 </style>
 </head>
 <body>
@@ -778,7 +809,11 @@ L.
   <img src="18-04-2025.png" class="memory-img">
 </div>
   <div class="name">Leray</div>
-  <audio controls><source src="leraye.mp3" type="audio/mpeg"></audio>
+  <div class="custom-player">
+  <button class="play-btn" onclick="toggleAudio(this)">▶</button>
+  <span class="track-name">Leray</span>
+  <audio src="leraye.mp3"></audio>
+</div>
   <div class="quote-box">"I wasn't necessarily looking for happiness, just less pain"</div>
   <div class="visualizer">
     <span></span><span></span><span></span><span></span><span></span>
@@ -1769,6 +1804,19 @@ overlay.addEventListener("click", () => {
     overlay.style.display = "none";
   }, 600);
 });
+function toggleAudio(btn) {
+  const audio = btn.parentElement.querySelector("audio");
+
+  if (audio.paused) {
+    audio.play();
+    btn.textContent = "⏸";
+  } else {
+    audio.pause();
+    btn.textContent = "▶";
+  }
+}
+</script>
+
 </script>
 
 
