@@ -770,6 +770,43 @@ details p {
   background: linear-gradient(145deg, rgba(120, 90, 255, .14), rgba(20, 20, 40, .2));
   border-color: rgba(120, 90, 255, .25);
 }
+.track{
+  position:relative;
+}
+
+/* glow base (spento) */
+.track::before{
+  content:"";
+  position:absolute;
+  inset:-20px;
+  border-radius:34px;
+  background: radial-gradient(circle,
+    rgba(168,85,247,.35),
+    rgba(59,130,246,.18),
+    transparent 70%);
+  opacity:0;
+  filter: blur(25px);
+  transition: opacity .5s ease, transform .5s ease;
+  z-index:0;
+  pointer-events:none;
+  transform: scale(.95);
+}
+
+/* glow attivo quando parte la canzone */
+.track.playing::before{
+  opacity:1;
+  transform: scale(1.02);
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse{
+  0%,100%{
+    filter: blur(25px) brightness(1);
+  }
+  50%{
+    filter: blur(35px) brightness(1.4);
+  }
+}
 </style>
 </head>
 <body>
