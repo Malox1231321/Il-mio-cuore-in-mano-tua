@@ -27,7 +27,7 @@
 .date-text {
   font-family: 'MioFontPersonalizzato', sans-serif;
   font-size: 18px;
-  color: #A78BFA;
+  color: #7c8cff;
   margin-bottom: 10px;
 }
 
@@ -67,12 +67,12 @@
     font-family: 'MioFontPersonalizzato', sans-serif;
     font-size: 18px;
     font-style: italic;
-    color: #A78BFA;
+    color: #b49cff;
     margin: 20px 0;
     padding: 10px;
     text-align: center;
-    border-top: 1px solid rgba(167, 139, 250, 0.3);
-    border-bottom: 1px solid rgba(167, 139, 250, 0.3);
+    border-top: 1px solid rgba(180, 156, 255, 0.25);
+    border-bottom: 1px solid rgba(180, 156, 255, 0.25);
 }@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 *{
@@ -95,7 +95,7 @@ body{
   padding:90px 24px;
   position:relative;
   background:
-    radial-gradient(circle at top,#314879 0%,#182235 35%,#0a0f18 100%);
+    radial-gradient(circle at top,#111a2e 0%,#0b1020 60%,#05070f 100%);
 }
 
 /* AURORA BACKGROUND */
@@ -104,9 +104,10 @@ body::before{
   position:fixed;
   inset:0;
   background:
-    radial-gradient(circle at 15% 20%,rgba(168,85,247,.16),transparent 25%),
-    radial-gradient(circle at 80% 10%,rgba(59,130,246,.13),transparent 30%),
-    radial-gradient(circle at 50% 80%,rgba(236,72,153,.10),transparent 35%);
+    radial-gradient(circle at 15% 20%,rgba(124,140,255,.14),transparent 25%),
+    radial-gradient(circle at 80% 10%,rgba(93,214,214,.10),transparent 30%),
+    radial-gradient(circle at 50% 80%,rgba(180,156,255,.10),transparent 35%);
+
   filter:blur(35px);
   animation:aurora 14s ease-in-out infinite alternate;
   pointer-events:none;
@@ -206,7 +207,7 @@ h1{
   inset:0;
   border-radius:34px;
   padding:1px;
-  background:linear-gradient(120deg,#8b5cf6,#3b82f6,#ec4899);
+  background:linear-gradient(120deg,#7c8cff,#5dd6d6,#b49cff);
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -332,10 +333,12 @@ details p {
   to{transform:rotate(360deg);}
 }
 .track.playing{
-  border-color: rgba(168,85,247,.4);
-  box-shadow:
-    0 35px 120px rgba(168,85,247,.28),
-    0 0 60px rgba(59,130,246,.12);
+  background: linear-gradient(
+    145deg,
+    rgba(124,140,255,.14),
+    rgba(93,214,214,.08),
+    rgba(180,156,255,.06)
+  );
 }
 
 .cover{
