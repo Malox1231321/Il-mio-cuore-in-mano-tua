@@ -1819,6 +1819,16 @@ You my lover, you my fighter, you my best friend, um</p>
     <p>🌕</p>
   </details>
 </div>
+<div class="track sugarfish" id="sugarfish">
+  <img class="cover" src="sugarfish.png">
+  <div class="name">Sugarfish</div>
+
+  <audio controls>
+    <source src="sugarfish.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="generated-text"></div>
+</div>
 
 </div>
 </div>
@@ -1828,10 +1838,18 @@ You my lover, you my fighter, you my best friend, um</p>
 const tracks = document.querySelectorAll(".track");
 
 let currentAudio = null;
+
+/* THE LIGHT */
 const lightTrack = document.querySelector("#the-light");
 const lightTextBox = lightTrack.querySelector(".generated-text");
 let lightStarted = false;
 
+/* SUGARFISH */
+const sugarTrack = document.querySelector("#sugarfish");
+const sugarTextBox = sugarTrack.querySelector(".generated-text");
+let sugarStarted = false;
+
+/* LIGHT TEXT */
 const lightText = `Se sei arrivata a questo punto vuol dire che abbiamo quasi finito.
 
 Come ho detto all’inizio, spero davvero che questa “esperienza” ti abbia fatto provare almeno la metà di quello che ho provato io mentre "costruivo" tutto.
@@ -1857,17 +1875,37 @@ let typingStarted = false;
 
 function typeLightText() {
   if (i < lightText.length) {
-
     const char = lightText.charAt(i);
-
-    if (char === "\n") {
-      lightTextBox.innerHTML += "<br>";
-    } else {
-      lightTextBox.innerHTML += char;
-    }
-
+    lightTextBox.innerHTML += (char === "\n") ? "<br>" : char;
     i++;
     setTimeout(typeLightText, 35);
+  }
+}
+
+/* SUGARFISH TEXT (metti il tuo testo qui) */
+const sugarText = `Come ti avevo accennato, siamo giunti alla fine. Magari ti chiederai il senso di quest'altra canzone; ecco, come ho fatto con quella prima dell'audio, volevo che facesse da sottofondo a ciò che hai letto e stai leggendo proprio ora. Devo essere sincero, non c’è granché da aggiungere a quanto ho già detto e ridetto. Spero solo che questa "esperienza" sia stata di tuo gradimento e che tu non l’abbia percepita come opprimente, o chissà cos'altro.
+
+Ora come ora non so se, arrivata a questo punto, avrai già avuto modo di leggere altro di cartaceo; magari proverò a scrivere qualcosa, ma proprio perché ho detto "magari", ci tenevo a farlo qui. Fatico a crederci, ma è passato quasi un anno; un lunghissimo anno senza di te, letteralmente. Ricordo ancora quanto odiassi non poterti vedere e quanto mi facesse sentire impotente. Questi dieci mesi hanno solo riconfermato tutto ciò e, come ho già ripetuto più volte, continuare a voltarsi indietro verso il passato non mi ha aiutato affatto.
+
+Può sembrare banale, ma ti assicuro che non c'è stato un giorno in cui io non ti abbia pensata almeno per un secondo. Però non voglio soffermarmi solo sulle cose brutte. All'inizio pensavo che la colpa fosse solo tua; attenzione, non sto giustificando il tuo comportamento, né tantomeno il modo in cui mi hai trattato, ma col passare del tempo ho provato a capire i tuoi motivi, o almeno quelli che io ho percepito come tali. Non scrivo questo per giustificarmi — non sono più quel tipo di persona, non più. Come dicevo prima, ho sbagliato tante volte e il più delle volte nemmeno me ne rendevo conto, ma ho imparato a riconoscerlo ora, proprio ora che, a quanto pare, non c’è più nulla da fare.
+
+Ripensare a tutto quello che non hai potuto fare per assecondarmi e per stare ai miei capricci mi lascia un nodo allo stomaco; per questo non sarò mai in grado di perdonarmi, così come non sarò mai in grado di darti le scuse che meriti. Riconosco di essere stato davvero troppo opprimente ed è stato proprio l’accumularsi di quei miei comportamenti a spingerti ad agire così.
+
+Non voglio fare la parte di quello che confessa i suoi errori solo per pregarti di tornare, anche se spero con tutto il cuore che tu lo faccia. Sono qui perché, alla fine, avevi ragione tu; e anche se la ragione non è mai stata tra i tuoi interessi primari, voglio che tu sappia che hai sempre avuto ragione. Nonostante tutto, mi sarebbe piaciuto davvero tanto risolvere le cose nel migliore dei modi, anche se io, stupidamente, ancora ci spero. Scrivo tutto questo senza rileggere nulla, perché volevo che venisse fuori una cosa il più autentica possibile; ti chiedo scusa se mi sono ripetuto tante volte.
+
+Credo di non avere più nulla da aggiungere per il momento, anche se ho perso il conto delle cose che avrei voluto dirti e che vorrei ancora poterti dire. Come dicevo, non mi resta che l’attesa e la speranza; quella non mancherà mai e, anche quando me ne rimarrà solo un pizzico, sarà in te che resterà riposta. Detto questo, credo che sia arrivato il momento di andare; resterò in attesa di un tuo riscontro, perché ho ancora un’infinità di cose da dirti che neanche immagini. Un abbraccione e tanti auguri per gli esami, so che darai il massimo.
+
+Tuo, nonostante tutto,
+Lello.`;
+let sugarI = 0;
+let sugarTypingStarted = false;
+
+function typeSugarText() {
+  if (sugarI < sugarText.length) {
+    const char = sugarText.charAt(sugarI);
+    sugarTextBox.innerHTML += (char === "\n") ? "<br>" : char;
+    sugarI++;
+    setTimeout(typeSugarText, 35);
   }
 }
 
@@ -1886,7 +1924,7 @@ tracks.forEach(track => {
     track.querySelector(".cover").style.zIndex = "10";
     track.classList.remove("paused");
 
-    // LIGHT SPECIAL
+    /* THE LIGHT */
     if (track.id === "the-light" && !lightStarted) {
       lightStarted = true;
 
@@ -1900,6 +1938,22 @@ tracks.forEach(track => {
 
       }, 1200);
     }
+
+    /* SUGARFISH */
+    if (track.id === "sugarfish" && !sugarStarted) {
+      sugarStarted = true;
+
+      setTimeout(() => {
+        sugarTextBox.classList.add("show");
+
+        if (!sugarTypingStarted) {
+          sugarTypingStarted = true;
+          typeSugarText();
+        }
+
+      }, 1200);
+    }
+
   });
 
   audio.addEventListener("pause", () => {
@@ -1933,6 +1987,7 @@ tracks.forEach(track => {
 
     currentAudio = null;
   });
+
 });
 </script>
 
@@ -1947,6 +2002,5 @@ overlay.addEventListener("click", () => {
   }, 600);
 });
 </script>
-
 </body>
 </html>
